@@ -1,0 +1,88 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+/* position middle of page*/
+.main-grid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 20px;
+    background-color: #090606;
+    padding: 5px;
+    z-index: 100;
+}
+
+/* */
+
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    gap: 16px;
+    padding: 16px;
+}
+
+.card {
+    height: 150px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* anime */
+
+.card-wrapper {
+    perspective: 500px;
+    display: inline-block;
+}
+
+.front {
+    background: crimson;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: orange;
+    transform: rotateY(-180deg);
+}
+
+.back,
+.front {
+    backface-visibility: hidden;
+    will-change: transform;
+    transition: transform 400ms;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.card:hover .front,
+.card:focus .front {
+    transform: rotateY(180deg);
+   
+}
+
+.card:hover .back,
+.card:focus .back {
+    transform: rotateY(0deg);
+   
+}
