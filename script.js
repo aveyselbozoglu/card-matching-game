@@ -1,18 +1,26 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-  let cardWrapper = document.createElement("div");
-  var card = document.createElement("a");
-  var mainGrid = document.querySelector(".main-grid");
-  var front = document.createElement("front");
-  var back = document.createElement("front");
-  cardWrapper.className = "card-wrapper";
-  card.className = "card";
-  front.className = "front";
-  back.className = "back";
+let kutuSayisi = 9;
 
-  front.append("Deneme");
-  back.append("Deneme2");
-  card.appendChild(front);
-  card.appendChild(back);
-  cardWrapper.appendChild(card);
-  mainGrid.appendChild(cardWrapper);
+document.addEventListener("DOMContentLoaded", function (event) {
+  createCards();
 });
+
+function createCards() {
+  for (let i = 0; i < kutuSayisi; i++) {
+    let mainGrid = document.querySelector(".main-grid");
+    let cardWrapper = document.createElement("div");
+    let card = document.createElement("a");
+    let front = document.createElement("front");
+    let back = document.createElement("front");
+    cardWrapper.className = "card-wrapper";
+    card.className = "card";
+    front.className = "front";
+    back.className = "back";
+
+    front.append("Deneme");
+    back.append("Deneme2");
+    card.appendChild(front);
+    card.appendChild(back);
+    cardWrapper.appendChild(card);
+    mainGrid.appendChild(cardWrapper);
+  }
+}

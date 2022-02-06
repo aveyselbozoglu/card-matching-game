@@ -1,16 +1,19 @@
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* position middle of page*/
+
+/* css variable */
+
+:root {
+    --card-border-radius: 5%;
+    --header-font-size: calc(1rem * 2);
+    --header-padding: 1rem;
 }
 
-html,
 body {
-    height: 100%;
+    background-image: url(./background-card-game.jpg);
 }
-/* position middle of page*/
+
+/* css variable */
+
 .main-grid {
     position: fixed;
     top: 50%;
@@ -21,7 +24,6 @@ body {
     -o-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     font-size: 20px;
-    background-color: #090606;
     padding: 5px;
     z-index: 100;
 }
@@ -30,28 +32,48 @@ body {
 
 .main-grid {
     display: grid;
-    grid-template-columns: repeat(3, 150px);
+    grid-template-columns: repeat(3, 128px);
     gap: 16px;
     padding: 16px;
+    grid-template-areas: "header header header";
 }
 
-.card {
-    height: 150px;
-    text-decoration: none;
+.header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    font-size: var(--header-font-size);
+    font-family: "Lobster", cursive;
+    padding: var(--header-padding);
 }
 
-/* anime */
+#new-game {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
 
 .card-wrapper {
     perspective: 500px;
     display: inline-block;
+    border-radius: var(--card-border-radius);
+    
 }
+
+.card {
+    height: 160px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+}
+
+/* anime */
 
 .front {
     background: crimson;
+    border-radius: inherit;
 }
 
 .back {
@@ -60,6 +82,7 @@ body {
     left: 0;
     background: orange;
     transform: rotateY(-180deg);
+    border-radius: inherit;
 }
 
 .back,
@@ -72,17 +95,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    
 }
 
 .card:hover .front,
 .card:focus .front {
     transform: rotateY(180deg);
-   
 }
 
 .card:hover .back,
 .card:focus .back {
     transform: rotateY(0deg);
-   
 }
