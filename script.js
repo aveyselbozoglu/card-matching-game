@@ -1,6 +1,6 @@
-let kutuSayisi = 8;
-
+let kutuSayisi;
 let randomNumbers = [];
+let mainGrid = document.querySelector(".main-grid");
 
 const imageUrls = [
   "https://i.picsum.photos/id/669/200/200.jpg?hmac=lAa_bMRK0BRBCTEvl1acVqTfEDrXQc0yNwi683-13cE",
@@ -10,9 +10,13 @@ const imageUrls = [
 ];
 
 document.addEventListener("DOMContentLoaded", function (event) {
-  fillRandoms(kutuSayisi);
-  setupBoard();
-  createCards();
+  //fillRandoms(kutuSayisi);
+  //setupBoard();
+  //createCards();
+
+  setTimeout(() => {
+    alert("first");
+  }, 100);
 });
 
 const fillRandoms = (kutuSayisi) => {
@@ -24,14 +28,16 @@ const fillRandoms = (kutuSayisi) => {
   randomNumbers = flatArray.sort(() => Math.random() - 0.5);
 };
 
-const setupBoard = () => {
+const setupBoardForNewGame = () => {
+  while (mainGrid.firstChild) {
+    mainGrid.removeChild(mainGrid.firstChild);
+  }
   let score = document.querySelector("#score");
-  score.innerHTML += "0";
+  score.innerHTML = "Score : 0";
 };
 
 function createCards() {
   for (let i = 0; i < kutuSayisi; i++) {
-    let mainGrid = document.querySelector(".main-grid");
     let cardWrapper = document.createElement("div");
     let card = document.createElement("a");
     let front = document.createElement("div");
@@ -59,12 +65,26 @@ function createCards() {
 
 function clickCard(card) {
   const clickedCardId = card.getAttribute("id");
-
   const clickedCard = document.querySelector("#" + clickedCardId);
-
   const clickedCardFront = clickedCard.firstElementChild;
   const clickedCardBack = clickedCard.lastElementChild;
-
   clickedCardFront.classList.add("clickedCardFront");
   clickedCardBack.classList.add("clickedCardBack");
+}
+
+function startGame() {
+  setupBoardForNewGame();
+  generateCardPositions();
+  createCards();
+}
+
+function generateCardPositions() {
+  kutuSayisi = 8;
+  let flatArray = [];
+  for (let i = 0; i < kutuSayisi / 2; i++) {
+    flatArray.push(i);
+    flatArray.push(i);
+  }
+
+  randomNumbers = flatArray.sort(() => Math.random() - 0.5);
 }
