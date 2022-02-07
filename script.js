@@ -68,8 +68,8 @@ function clickCard(card) {
   const clickedCard = document.querySelector("#" + clickedCardId);
   const clickedCardFront = clickedCard.firstElementChild;
   const clickedCardBack = clickedCard.lastElementChild;
-  clickedCardFront.classList.add("clickedCardFront");
-  clickedCardBack.classList.add("clickedCardBack");
+  clickedCardFront.classList.toggle("clickedCardFront");
+  clickedCardBack.classList.toggle("clickedCardBack");
 }
 
 function startGame() {
@@ -87,4 +87,20 @@ function generateCardPositions() {
   }
 
   randomNumbers = flatArray.sort(() => Math.random() - 0.5);
+}
+
+function clears() {
+  if (mainGrid.hasChildNodes()) {
+    let frontChildNodes = mainGrid.querySelectorAll(".front");
+    let backChildNodes = mainGrid.querySelectorAll(".back");
+
+    Array.from(frontChildNodes).forEach((element) => {
+      element.classList.remove("clickedCardFront");
+    });
+
+    Array.from(backChildNodes).forEach((element) => {
+      element.classList.remove("clickedCardBack");
+    });
+    //    frontChildNodes.classList.removeChild("clickedCardFront");
+  }
 }
