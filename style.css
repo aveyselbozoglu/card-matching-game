@@ -126,3 +126,7 @@ body {
 .clickedCardBack {
     transform: rotateY(0);
 }
+
+.make-unclickable{
+    pointer-events: none;
+}
