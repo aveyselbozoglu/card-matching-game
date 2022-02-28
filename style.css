@@ -55,6 +55,11 @@ body {
     background: transparent;
     border: none;
     cursor: pointer;
+    transition: transform 1.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#new-game:hover {
+    transform: scale(1.2);
 }
 
 .card-wrapper {
@@ -127,6 +132,49 @@ body {
     transform: rotateY(0);
 }
 
-.make-unclickable{
+.make-unclickable {
     pointer-events: none;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: block;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 20px;
+    padding: 5px;
+    width: 300px;
+    height: 300px;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 200ms;
+    border-radius: 3%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    visibility: visible;
+}
+
+.modal-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn-close-modal {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: white;
 }

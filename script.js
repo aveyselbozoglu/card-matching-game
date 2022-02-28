@@ -1,6 +1,11 @@
 let kutuSayisi;
 let randomNumbers = [];
 let mainGrid = document.querySelector(".main-grid");
+let modal = document.querySelector(".modal");
+let modalContent = document.querySelector(".modal-content");
+let score = document.querySelector("#score");
+let gamePointTag = document.querySelector("#gamePoint");
+score.textContent = "Score :";
 let clickedCardsNumbers = [];
 let clickedCardWrappers = [];
 let clickedCards = [];
@@ -32,8 +37,7 @@ function setupBoardForNewGame() {
   while (mainGrid.firstChild) {
     mainGrid.removeChild(mainGrid.firstChild);
   }
-  let score = document.querySelector("#score");
-  score.innerHTML = "Score : 0";
+  score.textContent = "Score : 0";
 }
 
 function resetGameValues() {
@@ -138,6 +142,7 @@ function clickCard(card, cardWrapper) {
 
     if (isClickedCardsSame) {
       gamePoint += 10;
+      score.textContent = "Score : " + gamePoint.toString();
     } else {
       doAfterWrongChoice();
       //  toggleBoardNonClickable();
@@ -177,7 +182,17 @@ function doAfterWrongChoice() {
   if (remainingTryCounter === 0) {
     setTimeout(() => {
       openAllCards();
-      alert(`Game is over , your point is ${gamePoint}`);
+
+      openModal();
     }, 1250);
   }
+}
+
+function closeModal() {
+  modal.style.visibility = "hidden";
+}
+
+function openModal() {
+  modal.style.visibility = "visible";
+  gamePointTag.textContent = "Puanınız : " + gamePoint.toString();
 }

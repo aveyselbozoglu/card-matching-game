@@ -13,18 +13,11 @@
     <link rel="stylesheet" href="style.css">
     <!-- https://www.rekoroyun.com/yilbasi-eslestirme.html-->
     <!--
-        sıradaki aşama 
-            tıklıycak tıklıycak aynı değilse hepsi kapanacak burada kaldık
-        // tıkladığında çeviriyor ama yanlış ise açıp kapadığı için// tamamlandı 
-
-
-        // : sıradaki aşama oyunun logiği
-            // şöyle olmalı start game basıldığında 3 adet hak vende oyunun durmasırdi , hak bittiği lazım ya da kart bittiğinde kazandın dmeesi lazım 
-
-        done :sonraki aşama 5 hak verilecek
-
-        sonraki aşama 3 bölüm halinde olacak 8-16-32
-        sonraki aşama 
+        // doğru bilince toast,
+        // popupa overlay yada shadow filter drop vs.
+        // popup ve arkası karışıyor  üstteki maddeyle aynı
+        // kartlar bitince popup kazandınız
+        // kart üstüne hover olunca effect
     -->
 </head>
 
@@ -33,7 +26,7 @@
         grid
     -->
     <div class="header">
-        <label onclick="clears()" id="score" for="">Score : 0</label>
+        <p onclick="clears()" id="score" for=""></p>
         <button id="new-game" onclick="startGame()">Yeni Oyun</button>
     </div>
     <div class="main-grid">
@@ -49,6 +42,15 @@
         </div> -->
     </div>
 
+    <div class="modal" id="overlay">
+        <div class="modal-header">
+            <button class="btn-close-modal" onclick="closeModal()">close</button>
+        </div>
+        <div class="modal-content">
+            <h3>Oyun bitti</h3>
+            <h4 id="gamePoint">Puanınız : </h4>
+        </div>
+    </div>
 
 </body>
 <script src="./script.js"></script>
