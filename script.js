@@ -3,8 +3,14 @@ let randomNumbers = [];
 let mainGrid = document.querySelector(".main-grid");
 let modal = document.querySelector(".modal");
 let modalContent = document.querySelector(".modal-content");
+let allButNotModal = document.querySelectorAll("body >*:not(.modal)");
+// console.log(typeof allButNotModal);
+// Array.from(allButNotModal).forEach((element) => {
+//   console.log(element);
+// });
 let score = document.querySelector("#score");
 let gamePointTag = document.querySelector("#gamePoint");
+let toast = document.querySelector(".toast");
 score.textContent = "Score :";
 let clickedCardsNumbers = [];
 let clickedCardWrappers = [];
@@ -47,6 +53,7 @@ function resetGameValues() {
   kutuSayisi = 8;
   remainingTryCounter = 3;
   successfullyClickedCards = 0;
+  gamePoint = 0;
 }
 
 function generateCardPositions() {
@@ -141,8 +148,7 @@ function clickCard(card, cardWrapper) {
       new Set(clickedCardsNumbers).size === 1 ? true : false;
 
     if (isClickedCardsSame) {
-      gamePoint += 10;
-      score.textContent = "Score : " + gamePoint.toString();
+      doAfterCorrectChoice();
     } else {
       doAfterWrongChoice();
       //  toggleBoardNonClickable();
@@ -165,6 +171,7 @@ function doAfterWrongChoice() {
   remainingTryCounter -= 1;
   let tempCards = clickedCards;
   let tempWrappers = clickedCardWrappers;
+
   setTimeout(() => {
     tempWrappers.forEach((element) => {
       element.classList.remove("make-unclickable");
@@ -177,22 +184,74 @@ function doAfterWrongChoice() {
         element.classList.toggle("clickedCardFront");
       else element.classList.toggle("clickedCardBack");
     });
+
+    setTimeout(() => {
+      if (remainingTryCounter === 0) {
+        openAllCards();
+        openModal();
+      }
+      setTimeout(() => {
+        toast.style.backgroundColor = "crimson";
+        toast.textContent = `Yanlış cevap , puanınız ${gamePoint}`;
+        toast.classList.toggle("show");
+        setTimeout(() => {
+          toast.classList.toggle("show");
+        }, 1000);
+      }, 10);
+    }, 10);
   }, 1250);
 
-  if (remainingTryCounter === 0) {
-    setTimeout(() => {
-      openAllCards();
+  // if (remainingTryCounter === 0) {
+  //   setTimeout(() => {
+  //     openAllCards();
 
-      openModal();
-    }, 1250);
-  }
+  //     openModal();
+  //   }, 1250);
+  // }
+
+  // toast.textContent = `Yanlış cevap , puanınız ${gamePoint}`;
+  // setTimeout(() => {
+  //   setTimeout(() => {
+  //     toast.classList.toggle("show");
+  //   }, 500);
+  //   toast.classList.toggle("show");
+  // }, 1750);
+}
+
+function doAfterCorrectChoice() {
+  gamePoint += 10;
+  score.textContent = "Score : " + gamePoint.toString();
+  toast.textContent = `Doğru cevap , puanınız ${gamePoint}`;
+  toast.style.backgroundColor = "green";
+
+  setTimeout(() => {
+    // kutu sayısı 8 , successfully clickedcard 8 olunca modalda tebirkler kazandınız popupı
+    successfullyClickedCards += 2;
+    setTimeout(() => {
+      toast.classList.toggle("show");
+    }, 1000);
+    toast.classList.toggle("show");
+  }, 1250);
 }
 
 function closeModal() {
   modal.style.visibility = "hidden";
+
+  Array.from(allButNotModal).forEach((element) => {
+    element.classList.toggle("isBlurred");
+  });
 }
 
 function openModal() {
   modal.style.visibility = "visible";
   gamePointTag.textContent = "Puanınız : " + gamePoint.toString();
+  Array.from(allButNotModal).forEach((element) => {
+    element.classList.toggle("isBlurred");
+  });
 }
+
+window.onclick = function (event) {
+  if (event.target != modal) {
+    if (modal.style.visibility === "visible") closeModal();
+  }
+};
