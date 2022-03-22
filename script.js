@@ -188,16 +188,17 @@ function doAfterWrongChoice() {
     setTimeout(() => {
       if (remainingTryCounter === 0) {
         openAllCards();
-        openModal();
-      }
-      setTimeout(() => {
-        toast.style.backgroundColor = "crimson";
-        toast.textContent = `Yanlış cevap , puanınız ${gamePoint}`;
-        toast.classList.toggle("show");
+        openModalForEndGame("Kaybettiniz!");
+      } else {
         setTimeout(() => {
+          toast.style.backgroundColor = "crimson";
+          toast.textContent = `Yanlış cevap , puanınız ${gamePoint}`;
           toast.classList.toggle("show");
-        }, 1000);
-      }, 10);
+          setTimeout(() => {
+            toast.classList.toggle("show");
+          }, 1000);
+        }, 10);
+      }
     }, 10);
   }, 1250);
 
@@ -227,10 +228,14 @@ function doAfterCorrectChoice() {
   setTimeout(() => {
     // kutu sayısı 8 , successfully clickedcard 8 olunca modalda tebirkler kazandınız popupı
     successfullyClickedCards += 2;
-    setTimeout(() => {
+    if (kutuSayisi === successfullyClickedCards) {
+      openModalForEndGame("Kazandınız");
+    } else {
+      setTimeout(() => {
+        toast.classList.toggle("show");
+      }, 1000);
       toast.classList.toggle("show");
-    }, 1000);
-    toast.classList.toggle("show");
+    }
   }, 1250);
 }
 
@@ -242,9 +247,9 @@ function closeModal() {
   });
 }
 
-function openModal() {
+function openModalForEndGame(text) {
   modal.style.visibility = "visible";
-  gamePointTag.textContent = "Puanınız : " + gamePoint.toString();
+  gamePointTag.textContent = text + " Puanınız : " + gamePoint.toString();
   Array.from(allButNotModal).forEach((element) => {
     element.classList.toggle("isBlurred");
   });
